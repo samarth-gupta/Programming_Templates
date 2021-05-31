@@ -1,11 +1,13 @@
 class FenwickNode
 {
-	public:
+public:
 	ll val;
+
 	FenwickNode()
 	{
 		val = 0;
 	}
+
 	FenwickNode(ll x)
 	{
 		val = x;
@@ -25,9 +27,10 @@ class FenwickNode
 template<class T>
 class FenwickTree
 {
-	public:
+public:
 	int N;
 	vector<T> tree, actual_value;
+	
 	FenwickTree(int n)
 	{
 		N = n+5;
