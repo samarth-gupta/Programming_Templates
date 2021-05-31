@@ -71,6 +71,11 @@ public:
 		return T::merge( left, right );
 	}
 
+	T operator[]( int pos )
+	{
+		return tree[pos+N];
+	}
+
 	T get( int pos )
 	{
 		return tree[pos+N];

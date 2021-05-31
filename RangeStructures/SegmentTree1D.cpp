@@ -99,6 +99,11 @@ public:
 		return T::merge( query(2*v+1,l,m,ql,qr), query(2*v+2,m+1,r,ql,qr) );
 	}
 
+	T operator[]( int pos )
+	{
+		return actual_value[pos];
+	}
+
 	T get( int pos )
 	{
 		return actual_value[pos];
