@@ -5,7 +5,7 @@ public:
 
 	Node()
 	{
-		val = 0;
+		val = INF;
 	}
 
 	Node(ll x)
@@ -15,9 +15,9 @@ public:
 
 	static Node merge(Node left, Node right)
 	{
-		Node result = Node();
+		Node result;
 
-		result.val = left.val + right.val;
+		result.val = min(left.val, right.val);
 
 		return result;
 	}
@@ -35,19 +35,27 @@ public:
 	{
 		N = n+5;
 		sz = 4*N;
-		tree.resize(sz,0);
-		actual_value.resize(N,0);
+		tree.resize(sz);
+		actual_value.resize(N);
 	}
 
-	SegmentTree( vector<T>&a )
+	template<class U>
+	SegmentTree( vector<U> &a )
 	{
 		actual_value.assign(a.begin(), a.end());
-		SegmentTree(a.size());
+
+		N = (int)actual_value.size()+5;
+		sz = 4*N;
+
+		tree.resize(sz);
+		actual_value.resize(N);
+
 		build(0,0,N-1);
 	}
 
 	void build( int v, int l, int r )
 	{
+		// if( l > r ) return;
 		if( l == r )
 		{
 			tree[v] = actual_value[l];
@@ -109,7 +117,7 @@ public:
 		return actual_value[pos];
 	}
 
-	T get( int l, int r )
+	T cumulative( int l, int r )
 	{
 		return query(0,0,N-1,l,r);
 	}

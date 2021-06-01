@@ -15,7 +15,7 @@ public:
 
 	static Node merge(Node left, Node right)
 	{
-		Node result = Node();
+		Node result;
 
 		result.val = left.val + right.val;
 
@@ -35,7 +35,7 @@ public:
 	{
 		N = n+5;
 		sz = 2*N;
-		tree.resize(sz,0);
+		tree.resize(sz);
 	}
 
 	SegmentTree( vector<T>&a )

@@ -1,27 +1,36 @@
-class FenwickNode
+class Node
 {
 public:
 	ll val;
 
-	FenwickNode()
+	Node()
 	{
 		val = 0;
 	}
 
-	FenwickNode( ll x )
+	Node(ll x)
 	{
 		val = x;
 	}
 
-	void merge( FenwickNode other )
+	static Node merge(Node left, Node right)
 	{
-		val += other.val;
+		Node result;
+
+		result.val = left.val + right.val;
+
+		return result;
 	}
 
-	void unmerge( FenwickNode other )
+	static Node unmerge(Node left, Node right)
 	{
-		val -= other.val;
+		Node result;
+
+		result.val = left.val - right.val;
+
+		return result;
 	}
+
 };
 
 template<class T>
@@ -34,25 +43,25 @@ public:
 	FenwickTree( int n )
 	{
 		N = n+5;
-		tree = vector<T>(N);
-		actual_value = vector<T>(N);
+		tree.resize(N);
+		actual_value.resize(N);
 	}
 
 	void add( int pos, T addend )
 	{
 		pos += 2;
 
-		actual_value[pos].merge(addend);
+		actual_value[pos] = T::merge(actual_value[pos], addend);
 		while( pos < N )
 		{
-			tree[pos].merge(addend);
+			tree[pos] = T::merge(tree[pos], addend);
 			pos += pos & -pos;
 		}
 	}
 
 	void set( int pos, T val )
 	{
-		val.unmerge(actual_value[pos+2]);
+		val = T::unmerge(val, actual_value[pos+2]);
 		add(pos, val);
 	}
 
@@ -74,7 +83,7 @@ public:
 		pos += 2;
 		while( pos > 0 )
 		{
-			result.merge(tree[pos]);
+			result = T::merge(result, tree[pos]);
 			pos -= pos & -pos;
 		}
 		return result;
@@ -84,7 +93,7 @@ public:
 	T cumulative( int l, int r )
 	{
 		T result = cumulative(r);
-		result.unmerge(cumulative(l-1));
+		result = T::unmerge(result, cumulative(l-1));
 		return result;
 	}
 
