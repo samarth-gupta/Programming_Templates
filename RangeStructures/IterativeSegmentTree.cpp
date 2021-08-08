@@ -40,9 +40,11 @@ public:
 
 	SegmentTree( vector<T>&a )
 	{
-		N = a.size();
+		N = a.size()+5;
 		sz = 2*N;
-		for(int i=0;i<N;i++)
+		tree.resize(sz);
+
+		for(int i=0;i<(int)a.size();i++)
 			tree[i+N] = a[i];
 
 		for(int i=N-1;i>0;i--)
