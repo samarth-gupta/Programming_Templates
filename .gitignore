@@ -1,0 +1,16 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+# *.cpp
+*.in
+*.out
+*.sh
+*.txt
+/*.cpp
+.DS_Store
